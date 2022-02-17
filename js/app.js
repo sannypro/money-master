@@ -18,7 +18,7 @@ document.getElementById('expanse-calculate').addEventListener('click', function 
             alert("please insert positive amount")
         }
         else {
-            debugger;
+
             if (clothesExpanse.value == '') {
                 alert('if you do not want to fill any box simply type 0')
             }
@@ -30,16 +30,16 @@ document.getElementById('expanse-calculate').addEventListener('click', function 
 
                 const clothesExpanseInt = parseInt(clothesExpanse.value);
                 const totalExpanse = foodExpanseInt + rentExpanseInt + clothesExpanseInt;
-                const showTotaExpanse = document.getElementById('total-expanse')
-                showTotaExpanse.innerText = totalExpanse;
+
+                pushInnerText('total-expanse', totalExpanse);
                 const income = document.getElementById('income');
                 if (income.value < 0) {
                     alert("please insert positive amount");
-                    showTotaExpanse.innerText = '0'
+                    pushInnerText('total-expanse', '0');
                 }
                 else if (income.value == '') {
                     alert("you did not input income")
-                    showTotaExpanse.innerText = '0'
+                    pushInnerText('total-expanse', '0');
                 }
                 else {
                     const BalanceCalculation = income.value - totalExpanse;
@@ -49,7 +49,7 @@ document.getElementById('expanse-calculate').addEventListener('click', function 
                     }
                     else {
                         alert("you don't have enough money to expanse")
-                        showTotaExpanse.innerText = '0'
+                        pushInnerText('total-expanse', '0');
                     }
                 }
             }
@@ -62,20 +62,26 @@ document.getElementById('savings').addEventListener('click', function () {
     const savingPercentage = savingInput.value / 100;
     const totalBalance = document.getElementById('balance');
     const saving = parseFloat(totalBalance.innerText) * savingPercentage;
-    const savedAmount = document.getElementById("saved-amount");
-    savedAmount.innerText = saving;
+    pushInnerText('saved-amount', saving);
     const savingCalculation = parseFloat(totalBalance.innerText) - saving;
-    const remainingBalance = document.getElementById('remaining-balance');
+
     if (savingInput.value < 0) {
         alert("please insert positive amount");
-        savedAmount.innerText = '0';
+
+        pushInnerText('saved-amount', '0');
     }
     else if (savingInput.value > 100) {
         alert("you do not have enough money to save");
-        savedAmount.innerText = '0';
+        pushInnerText('saved-amount', '0');
     }
     else {
-        remainingBalance.innerText = savingCalculation;
+        pushInnerText('remaining-balance', savingCalculation)
     }
 
 })
+
+
+function pushInnerText(id, innerText) {
+    const getElement = document.getElementById(id);
+    getElement.innerText = innerText;
+}
